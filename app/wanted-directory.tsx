@@ -119,6 +119,10 @@ export function WantedDirectory({ meta }: DirectoryProps) {
             дата та орган розшуку — рівно так, як їх оприлюднено у державному
             наборі даних.
           </p>
+          <a className="hero-cta" href="#catalog">
+            Переглянути {formatNumber(meta.total)} записів
+            <span aria-hidden="true">↓</span>
+          </a>
         </div>
 
         <div className="hero-metrics" aria-label="Статистика каталогу">
@@ -138,16 +142,6 @@ export function WantedDirectory({ meta }: DirectoryProps) {
             <small>державний портал data.gov.ua</small>
           </div>
         </div>
-      </section>
-
-      <section className="truth-strip">
-        <span className="truth-index">01</span>
-        <p>
-          <strong>Що цей каталог не стверджує.</strong> Державний набір не
-          підтверджує громадянство, факт виїзду за кордон, поточне
-          місцезнаходження або винуватість особи. Поле «місце» — це остання
-          географічна прив’язка, зазначена у картці розшуку.
-        </p>
       </section>
 
       <section className="directory" id="catalog">
@@ -298,6 +292,16 @@ export function WantedDirectory({ meta }: DirectoryProps) {
             <p>Спробуйте інший рік, категорію або коротший пошуковий запит.</p>
           </div>
         )}
+      </section>
+
+      <section className="truth-strip">
+        <span className="truth-index">01</span>
+        <p>
+          <strong>Що цей каталог не стверджує.</strong> Державний набір не
+          підтверджує громадянство, факт виїзду за кордон, поточне
+          місцезнаходження або винуватість особи. Поле «місце» — це остання
+          географічна прив’язка, зазначена у картці розшуку.
+        </p>
       </section>
 
       <section className="methodology">
