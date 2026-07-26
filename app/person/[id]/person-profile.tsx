@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import type { WantedMeta, WantedRecord } from "@/lib/wanted";
 import {
   formatDate,
@@ -9,55 +6,12 @@ import {
 } from "@/lib/wanted";
 
 type ProfileProps = {
-  id: string;
   meta: WantedMeta;
+  record: WantedRecord | null;
 };
 
-export function PersonProfile({ id, meta }: ProfileProps) {
-  const [record, setRecord] = useState<WantedRecord | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [missing, setMissing] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    const load = async () => {
-      try {
-        const indexResponse = await fetch("/data/index.json");
-        const index = (await indexResponse.json()) as Record<string, string>;
-        const year = index[id];
-        if (!year) {
-          if (active) setMissing(true);
-          return;
-        }
-
-        const recordsResponse = await fetch(`/data/${year}.json`);
-        const records = (await recordsResponse.json()) as WantedRecord[];
-        const found = records.find((item) => item.id === id);
-        if (!active) return;
-        if (found) setRecord(found);
-        else setMissing(true);
-      } catch {
-        if (active) setMissing(true);
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-
-    load();
-    return () => {
-      active = false;
-    };
-  }, [id]);
-
-  if (loading) {
-    return (
-      <main className="profile-shell">
-        <div className="profile-loading">Перевіряємо офіційний запис…</div>
-      </main>
-    );
-  }
-
-  if (missing || !record) {
+export function PersonProfile({ record, meta }: ProfileProps) {
+  if (!record) {
     return (
       <main className="profile-shell">
         <a className="back-link" href="/">
