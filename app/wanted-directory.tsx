@@ -15,6 +15,7 @@ const PAGE_SIZE = 24;
 
 type DirectoryProps = {
   meta: WantedMeta;
+  initialRecords: WantedRecord[];
 };
 
 async function loadYear(year: string) {
@@ -28,25 +29,38 @@ async function loadYear(year: string) {
   return records;
 }
 
-export function WantedDirectory({ meta }: DirectoryProps) {
+export function WantedDirectory({ meta, initialRecords }: DirectoryProps) {
   const years = Object.keys(meta.years).sort((a, b) => b.localeCompare(a));
-  const [selectedYear, setSelectedYear] = useState(years[0]);
+  const defaultYear = years[0];
+  const [selectedYear, setSelectedYear] = useState(defaultYear);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [query, setQuery] = useState("");
-  const [records, setRecords] = useState<WantedRecord[]>([]);
+  const [records, setRecords] = useState<WantedRecord[]>(initialRecords);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     let active = true;
-    setLoading(true);
     setError("");
     setVisibleCount(PAGE_SIZE);
 
+    if (selectedYear === defaultYear) {
+      setRecords(initialRecords);
+      setLoading(false);
+      return () => {
+        active = false;
+      };
+    }
+
+    setLoading(true);
     const request =
       selectedYear === "all"
-        ? Promise.all(years.map(loadYear)).then((groups) => groups.flat())
+        ? Promise.all(
+            years.map((year) =>
+              year === defaultYear ? Promise.resolve(initialRecords) : loadYear(year),
+            ),
+          ).then((groups) => groups.flat())
         : loadYear(selectedYear);
 
     request
@@ -65,7 +79,7 @@ export function WantedDirectory({ meta }: DirectoryProps) {
     return () => {
       active = false;
     };
-  }, [selectedYear, years.join(",")]);
+  }, [defaultYear, initialRecords, selectedYear, years.join(",")]);
 
   const filteredRecords = useMemo(() => {
     const normalizedQuery = normalizeSearch(query);
