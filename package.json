@@ -12,7 +12,8 @@
     "test": "pnpm run build && node --test tests/rendered-html.test.mjs",
     "data:sync": "node scripts/sync-wanted-data.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "prebuild": "node scripts/ensure-wanted-data.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",
