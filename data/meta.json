@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-07-27T08:37:17.611Z",
+  "sourceUpdatedAt": "2026-07-26T11:30:14.105432",
+  "sourceName": "Національна поліція України — data.gov.ua",
+  "sourceUrl": "https://data.gov.ua/dataset/59f1b577-198c-403f-9b1a-39e4d6ab12e9",
+  "license": "Creative Commons Attribution 4.0",
+  "startDate": "2022-01-01",
+  "endDate": "2026-07-27",
+  "total": 34185,
+  "years": {
+    "2022": 5730,
+    "2023": 6330,
+    "2024": 7877,
+    "2025": 9034,
+    "2026": 5214
+  },
+  "categories": [
+    {
+      "id": "investigation",
+      "label": "Переховується від досудового розслідування",
+      "count": 18383
+    },
+    {
+      "id": "court",
+      "label": "Переховується від суду",
+      "count": 9200
+    },
+    {
+      "id": "probation",
+      "label": "Відсутня за місцем виконання покарання",
+      "count": 2548
+    },
+    {
+      "id": "dbr",
+      "label": "Переховується від ДБР",
+      "count": 1573
+    },
+    {
+      "id": "sentence",
+      "label": "Ухиляється від виконання вироку",
+      "count": 1572
+    },
+    {
+      "id": "deserter",
+      "label": "Дезертир",
+      "count": 551
+    },
+    {
+      "id": "prosecutor",
+      "label": "Переховується від прокуратури",
+      "count": 357
+    },
+    {
+      "id": "supervision",
+      "label": "Ухиляється від адміністративного нагляду",
+      "count": 1
+    }
+  ]
+}
