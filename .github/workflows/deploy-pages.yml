@@ -30,7 +30,16 @@ jobs:
           node-version: 22
 
       - name: Download official data
-        run: node scripts/sync-wanted-data.mjs
+        run: |
+          if ! node scripts/sync-wanted-data.mjs; then
+            echo "The government portal is unavailable; using the verified public snapshot."
+            mkdir -p public/data
+            for file in meta.json index.json 2022.json 2023.json 2024.json 2025.json 2026.json; do
+              curl --fail --location --retry 5 \
+                "https://reiestr-rozshuku-ua.vladpadiak.chatgpt.site/data/${file}" \
+                --output "public/data/${file}"
+            done
+          fi
 
       - name: Build static site
         run: node scripts/build-github-pages.mjs
